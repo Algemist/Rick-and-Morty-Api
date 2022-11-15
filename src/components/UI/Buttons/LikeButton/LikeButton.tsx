@@ -1,16 +1,18 @@
 import React from 'react';
-import {AiOutlineHeart} from 'react-icons/ai';
+import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
 import styles from './likeButton.module.css';
 interface ILikeButton {
-    onClick: () => void
+    onClick: () => void,
+    liked: boolean,
 }
 
 const LikeButton = ({
-    onClick
+    onClick,
+    liked,
 }: ILikeButton) => {
     return (
         <button onClick={onClick} className={styles.btn}>
-            <AiOutlineHeart />
+            {liked ? <AiFillHeart /> : <AiOutlineHeart/>}
         </button>
     );
 };

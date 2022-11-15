@@ -41,16 +41,26 @@ const asyncCharactersSlice = createSlice({
             if (character !== undefined)
                 state.characters = state.characters.filter(character => character.id !== action.payload.id);
         },
+        changeLikeStatus(state, action) {
+            const character = state.characters.find(characters => characters.id === action.payload.id);
+            if (character) {
+                character.liked = !character.liked;
+            }
+        }
     },
     extraReducers: {
-        [String(fetchCharacters.pending)]: (state, action) => {
+        [String(fetchCharacters.pending)]: (state) => {
             state.status = 'loading';
             state.error = '';
         },
 
         [String(fetchCharacters.fulfilled)]: (state, action) => {
             state.status = 'resolved';
-            state.characters = action.payload.results;
+            const arr: ICharacter[] = action.payload.results;
+            arr.forEach(character => {
+                character.liked = false;
+            })
+            state.characters = arr;
         },
 
         [String(fetchCharacters.pending)]: (state, action) => {
@@ -61,4 +71,4 @@ const asyncCharactersSlice = createSlice({
 })
 
 export default asyncCharactersSlice.reducer
-export const {removeCharacter} = asyncCharactersSlice.actions;
+export const {removeCharacter, changeLikeStatus} = asyncCharactersSlice.actions;

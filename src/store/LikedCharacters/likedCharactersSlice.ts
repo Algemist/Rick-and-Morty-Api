@@ -16,10 +16,10 @@ const likedCharactersSlice = createSlice({
     initialState: initState,
     reducers: {
         addCharacter(state, action) {
-
+            state.characters.push(action.payload);
         },
 
-        removeCharacter(state, action) {
+        removeFromLikedArr(state, action) {
             const character = state.characters.find(characters => characters.id === action.payload.id);
             if (character)
                 state.characters = state.characters.filter(character => character.id !== action.payload.id);
@@ -32,4 +32,4 @@ const likedCharactersSlice = createSlice({
 })
 
 export default likedCharactersSlice.reducer;
-export const {addCharacter, switchStatus, removeCharacter} = likedCharactersSlice.actions;
+export const {addCharacter, switchStatus, removeFromLikedArr} = likedCharactersSlice.actions;

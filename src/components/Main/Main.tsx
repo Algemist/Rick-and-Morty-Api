@@ -12,8 +12,7 @@ const Main = () => {
 
     useEffect(() => {
         dispatch(fetchCharacters());
-
-    }, [dispatch, likesStatus]);
+    }, []);
 
     return (
         <main>

@@ -3,8 +3,30 @@ import {ICharacter} from "../../../../types";
 import styles from './characterInfo.module.css';
 import LikeButton from "../../../UI/Buttons/LikeButton/LikeButton";
 import CloseButton from "../../../UI/Buttons/CloseButton/CloseButton";
-import {useAppDispatch} from "../../../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {removeCharacter} from "../../../../store/AsynCharacters/AsyncCharactersSlice";
+import {removeFromLikedArr} from "../../../../store/LikedCharacters/likedCharactersSlice";
+
+interface ICharacterInfo {
+    name: string,
+    type: string,
+    gender: string,
+    origin: {
+        name: string,
+        url: string,
+    },
+    status: string,
+    location: {
+        name: string,
+        url: string,
+    },
+    created: Date,
+    species: string,
+    id: number,
+    liked: boolean,
+    handleLike: () => void,
+    handleDelete: () => void
+}
 
 const CharacterInfo = ({
     name,
@@ -15,19 +37,15 @@ const CharacterInfo = ({
     location,
     created,
     species,
-    id,
-}: Omit<ICharacter, "image" | "url" | "episode">) => {
+    liked,
+    handleLike,
+   handleDelete
+}: ICharacterInfo) => {
     const date = new Date(created);
-    const dispatch = useAppDispatch();
-
-    const handleDelete = () => {
-        dispatch(removeCharacter({id}));
-    }
-
     return (
         <div className={styles.wrapper}>
             <CloseButton onClick={handleDelete}/>
-            <LikeButton onClick={() => {}} />
+            <LikeButton onClick={handleLike}  liked={liked}/>
             <h2 className={styles.title}>Character info:</h2>
             <p>name: <span>{name}</span></p>
             <p>gender: <span>{gender}</span></p>
