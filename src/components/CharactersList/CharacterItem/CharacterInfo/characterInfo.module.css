@@ -1,0 +1,9 @@
+.wrapper {
+    position: relative;
+    padding: 5px;
+    border-top: none;
+}
+
+.title {
+    margin: 0;
+}

@@ -2,11 +2,13 @@ import {createSlice} from "@reduxjs/toolkit";
 import {ICharacter} from "../../types";
 
 interface ILikedCharacterSlice {
-    characters: ICharacter[]
+    characters: ICharacter[],
+    status: boolean,
 }
 
 const initState: ILikedCharacterSlice = {
-    characters: []
+    characters: [],
+    status: false,
 }
 
 const likedCharactersSlice = createSlice({
@@ -16,8 +18,18 @@ const likedCharactersSlice = createSlice({
         addCharacter(state, action) {
 
         },
+
+        removeCharacter(state, action) {
+            const character = state.characters.find(characters => characters.id === action.payload.id);
+            if (character)
+                state.characters = state.characters.filter(character => character.id !== action.payload.id);
+        },
+
+        switchStatus(state, action) {
+            state.status = action.payload;
+        }
     }
 })
 
 export default likedCharactersSlice.reducer;
-export const {addCharacter} = likedCharactersSlice.actions;
+export const {addCharacter, switchStatus, removeCharacter} = likedCharactersSlice.actions;

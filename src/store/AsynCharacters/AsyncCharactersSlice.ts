@@ -35,7 +35,13 @@ export const fetchCharacters = createAsyncThunk(
 const asyncCharactersSlice = createSlice({
     name: "characters",
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        removeCharacter(state, action) {
+            const character = state.characters.find(characters => characters.id === action.payload.id);
+            if (character !== undefined)
+                state.characters = state.characters.filter(character => character.id !== action.payload.id);
+        },
+    },
     extraReducers: {
         [String(fetchCharacters.pending)]: (state, action) => {
             state.status = 'loading';
@@ -55,3 +61,4 @@ const asyncCharactersSlice = createSlice({
 })
 
 export default asyncCharactersSlice.reducer
+export const {removeCharacter} = asyncCharactersSlice.actions;
