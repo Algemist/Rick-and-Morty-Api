@@ -3,27 +3,8 @@ import {ICharacter} from "../../../../types";
 import styles from './characterInfo.module.css';
 import LikeButton from "../../../UI/Buttons/LikeButton/LikeButton";
 import CloseButton from "../../../UI/Buttons/CloseButton/CloseButton";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
-import {removeCharacter} from "../../../../store/AsynCharacters/AsyncCharactersSlice";
-import {removeFromLikedArr} from "../../../../store/LikedCharacters/likedCharactersSlice";
 
-interface ICharacterInfo {
-    name: string,
-    type: string,
-    gender: string,
-    origin: {
-        name: string,
-        url: string,
-    },
-    status: string,
-    location: {
-        name: string,
-        url: string,
-    },
-    created: Date,
-    species: string,
-    id: number,
-    liked: boolean,
+interface ICharacterInfo extends Omit<ICharacter, "image" | "episode" | "url"> {
     handleLike: () => void,
     handleDelete: () => void
 }

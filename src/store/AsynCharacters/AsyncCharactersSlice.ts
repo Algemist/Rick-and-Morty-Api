@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ICharacter} from "../../types";
 
 interface ICharacterState {
@@ -23,8 +23,7 @@ export const fetchCharacters = createAsyncThunk(
                 throw new Error('Server Error');
             }
 
-            const data = await response.json();
-            return data as ICharacter[];
+            return await response.json() as ICharacter[];
         } catch (error) {
             if (error instanceof Error)
             return rejectWithValue(error.message);
@@ -41,6 +40,7 @@ const asyncCharactersSlice = createSlice({
             if (character !== undefined)
                 state.characters = state.characters.filter(character => character.id !== action.payload.id);
         },
+
         changeLikeStatus(state, action) {
             const character = state.characters.find(characters => characters.id === action.payload.id);
             if (character) {

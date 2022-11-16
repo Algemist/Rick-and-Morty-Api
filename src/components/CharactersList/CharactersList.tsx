@@ -8,7 +8,6 @@ interface ICharactersList {
 }
 
 const CharactersList = ({characters}: ICharactersList) => {
-
     return (
         <ul className={styles.list}>
             {characters.map(character => <CharacterItem {...character} key={character.id} />)}
