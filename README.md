@@ -1,6 +1,6 @@
 #
-    
-    API: https://rickandmortyapi.com/
+     API:
+    https://rickandmortyapi.com/
 
 # Getting Started with Create React App
 
